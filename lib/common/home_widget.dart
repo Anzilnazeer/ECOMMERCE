@@ -6,9 +6,9 @@ import 'package:newchat/screens/home%20screen/showall_product.dart';
 import 'package:newchat/screens/home%20screen/single_product.dart';
 import 'package:provider/provider.dart';
 
+import '../controllers/favouries/favourites_provider.dart';
 import '../models/tshirts_model.dart';
 import '../screens/home screen/widgets/productcard.dart';
-import '../services/helper.dart';
 
 class HomeWidget extends StatelessWidget {
   final Future<List<TshirtsModel>> men;
@@ -22,6 +22,9 @@ class HomeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var singleProductNotifier = Provider.of<SingleProductNotifier>(context);
+    var favouriteNotifier =
+        Provider.of<FavouriteNotifier>(context, listen: true);
+    favouriteNotifier.getFavs();
     return Padding(
       padding: EdgeInsets.only(left: 10.w),
       child: SingleChildScrollView(
@@ -49,9 +52,10 @@ class HomeWidget extends StatelessWidget {
                           final mendata = snapshot.data![index];
 
                           // Use null-aware operators to handle potential null values
-                          final title = mendata.title ?? 'N/A';
-                          final details = mendata.details ?? 'N/A';
-                          final price = mendata.price ?? 'N/A';
+                          final title = mendata.title;
+                          final details = mendata.details;
+                          final price = mendata.price;
+                          final category = mendata.category;
 
                           // Check if image is not null and the image list is not empty
                           final image =
@@ -59,23 +63,24 @@ class HomeWidget extends StatelessWidget {
 
                           return GestureDetector(
                             onTap: () {
-                              singleProductNotifier.shoesSizes = mendata.sizes!;
+                              singleProductNotifier.shoesSizes = mendata.sizes;
                               print(singleProductNotifier.shoeSizes);
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => SingleProductPage(
-                                      id: mendata.id!,
-                                      category: mendata.category!),
+                                      id: mendata.id,
+                                      category: mendata.category),
                                 ),
                               );
                             },
                             child: HomeProductCardContainer(
-                              id: mendata.id ?? 'N/A',
+                              id: mendata.id,
                               title: title,
                               details: details,
                               price: price,
                               image: image,
+                              category: category,
                             ),
                           );
                         },
@@ -137,8 +142,11 @@ class HomeWidget extends StatelessWidget {
                       width: 180.h,
                       decoration: BoxDecoration(
                           image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: NetworkImage(info[index]['image']!)),
+                            fit: BoxFit.cover,
+                            image: NetworkImage(
+                              info[index]['image']!,
+                            ),
+                          ),
                           color: const Color.fromARGB(255, 245, 245, 245),
                           borderRadius: BorderRadius.circular(10.w),
                           boxShadow: const [

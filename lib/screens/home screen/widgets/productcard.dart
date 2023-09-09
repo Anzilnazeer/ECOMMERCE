@@ -2,13 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive/hive.dart';
 import 'package:iconly/iconly.dart';
+import 'package:newchat/controllers/favouries/favourites_provider.dart';
 import 'package:newchat/models/constants.dart';
 import 'package:newchat/screens/favourite_screen.dart';
+import 'package:provider/provider.dart';
+
+import '../../../controllers/main screen/main_screen._provider.dart';
 
 class HomeProductCardContainer extends StatefulWidget {
   final String title;
   final String details;
-  final String? category;
+  final String category;
   final String? id;
   final String price;
   final String image;
@@ -19,7 +23,7 @@ class HomeProductCardContainer extends StatefulWidget {
       required this.title,
       required this.details,
       required this.price,
-      this.category,
+      required this.category,
       this.id,
       this.onTap});
 
@@ -29,27 +33,11 @@ class HomeProductCardContainer extends StatefulWidget {
 }
 
 class _HomeProductCardContainerState extends State<HomeProductCardContainer> {
-  final _favBox = Hive.box('fav_box');
-  Future<void> _createFav(Map<dynamic, dynamic> newFav) async {
-    await _favBox.add(newFav);
-    getFavs();
-  }
-
-  getFavs() {
-    final favData = _favBox.keys.map((key) {
-      final item = _favBox.get(key);
-      return {
-        "key": key,
-        "id": item['id'],
-      };
-    }).toList();
-    favour = favData.toList();
-    ids = favour.map((item) => item['id']).toList();
-    setState(() {});
-  }
-
   @override
   Widget build(BuildContext context) {
+    var favouriteNotifier =
+        Provider.of<FavouriteNotifier>(context, listen: true);
+    favouriteNotifier.getFavs();
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ClipRRect(
@@ -91,30 +79,33 @@ class _HomeProductCardContainerState extends State<HomeProductCardContainer> {
                     Positioned(
                       right: 15.w,
                       top: 15.h,
-                      child: GestureDetector(
-                        onTap: () {
-                          if (ids.contains(widget.id)) {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const FavouriteScreen(),
-                                ));
-                          } else {
-                            _createFav({
-                              "id": widget.id,
-                              "title": widget.title,
-                              "category": widget.category,
-                              "image": widget.image,
-                            });
-                          }
-                        },
-                        child: Icon(
-                          ids.contains(widget.id)
-                              ? Icons.favorite
-                              : Icons.favorite_border,
-                          color: Color.fromARGB(255, 0, 0, 0),
-                        ),
-                      ),
+                      child: Consumer<FavouriteNotifier>(
+                          builder: (context, favourNotifier, child) {
+                        return GestureDetector(
+                          onTap: () async {
+                            if (favourNotifier.ids.contains(widget.id)) {
+                              Provider.of<MainScreenNotifier>(context,
+                                      listen: false)
+                                  .pageIndex = 2;
+                            } else {
+                              favouriteNotifier.createFav({
+                                "id": widget.id,
+                                "title": widget.title,
+                                "category": widget.category,
+                                "image": widget.image,
+                                "price": widget.price
+                              });
+                              setState(() {});
+                            }
+                          },
+                          child: Icon(
+                            favourNotifier.ids.contains(widget.id)
+                                ? Icons.favorite
+                                : Icons.favorite_border,
+                            color: Color.fromARGB(255, 0, 0, 0),
+                          ),
+                        );
+                      }),
                     )
                   ],
                 ),

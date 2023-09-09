@@ -4,13 +4,13 @@ List<TshirtsModel> tshirtsFromJson(String str) => List<TshirtsModel>.from(
     json.decode(str).map((x) => TshirtsModel.fromJson(x)));
 
 class TshirtsModel {
-  final String? id;
-  final String? title;
-  final String? details;
+  final String id;
+  final String title;
+  final String details;
   final String image;
-  final String? category;
-  final List<dynamic>? sizes;
-  final String? price;
+  final String category;
+  final List<dynamic> sizes;
+  final String price;
 
   TshirtsModel({
     required this.id,

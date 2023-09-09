@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:hive/hive.dart';
+import 'package:newchat/models/constants.dart';
+import 'package:newchat/screens/main%20screen/main_screen.dart';
+import 'package:provider/provider.dart';
+
+import '../controllers/favouries/favourites_provider.dart';
 
 class FavouriteScreen extends StatefulWidget {
   const FavouriteScreen({super.key});
@@ -11,25 +16,11 @@ class FavouriteScreen extends StatefulWidget {
 }
 
 class _FavouriteScreenState extends State<FavouriteScreen> {
-  final _favBox = Hive.box('fav_box');
-  deleteFavs(int key) async {
-    await _favBox.delete(key);
-  }
-
   @override
   Widget build(BuildContext context) {
-    List<dynamic> fav = [];
-    final favData = _favBox.keys.map((key) {
-      final item = _favBox.get(key);
-      return {
-        "key": key,
-        "id": item['id'],
-        "category": item['category'],
-        "title": item['title'],
-        "image": item['image'],
-        "price": item['price'],
-      };
-    }).toList();
+    var favouriteNotifier =
+        Provider.of<FavouriteNotifier>(context, listen: true);
+    favouriteNotifier.getAllFavs();
     return Scaffold(
       backgroundColor: const Color(0xFFE2E2E2),
       body: Padding(
@@ -42,122 +33,107 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                 const SizedBox(
                   height: 40,
                 ),
-                GestureDetector(
-                  onTap: () {},
-                  child: const Icon(
-                    Icons.close,
-                    color: Colors.black,
-                  ),
-                ),
-                SizedBox(
-                  height: 20.h,
-                ),
                 const Text(
-                  "My Cart",
+                  "My Favourites",
                   style: TextStyle(fontSize: 25),
                 ),
                 const SizedBox(
                   height: 20,
                 ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.65,
-                  child: ListView.builder(
-                      itemCount: 2,
-                      padding: EdgeInsets.zero,
-                      itemBuilder: (context, index) {
-                        final data = fav[index];
-                        return Padding(
-                          padding: const EdgeInsets.all(8),
-                          child: ClipRRect(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(12)),
-                            child: Slidable(
-                              key: const ValueKey(0),
-                              endActionPane: ActionPane(
-                                motion: const ScrollMotion(),
-                                children: [
-                                  SlidableAction(
-                                    flex: 1,
-                                    onPressed: (context) {},
-                                    backgroundColor: Colors.red,
-                                    foregroundColor: Colors.white,
-                                    icon: Icons.delete,
-                                    label: 'Delete',
-                                  ),
-                                ],
-                              ),
-                              child: Container(
-                                height: 100.h,
-                                width: MediaQuery.of(context).size.width,
-                                decoration: BoxDecoration(
-                                    color: Colors.grey.shade100,
-                                    boxShadow: [
-                                      BoxShadow(
-                                          color: Colors.grey.shade500,
-                                          spreadRadius: 5,
-                                          blurRadius: 0.3,
-                                          offset: const Offset(0, 1)),
-                                    ]),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(12),
-                                          child: Image.network(
-                                            data['image'],
-                                            width: 70.w,
-                                            height: 100.h,
-                                            fit: BoxFit.cover,
+                Consumer<FavouriteNotifier>(
+                    builder: (context, favouriteNotifier, child) {
+                  return SizedBox(
+                      height: 580.h,
+                      child: favouriteNotifier.fav.isEmpty
+                          ? const Center(child: Text('No favourites'))
+                          : ListView.builder(
+                              itemCount: favouriteNotifier.fav.length,
+                              padding: EdgeInsets.zero,
+                              itemBuilder: (context, index) {
+                                final data = favouriteNotifier.fav[index];
+                                final title = data['title'];
+                                final category = data['category'];
+                                final price = data['price'];
+
+                                return Padding(
+                                  padding: const EdgeInsets.all(8),
+                                  child: ClipRRect(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(12)),
+                                    child: Container(
+                                      height: 100.h,
+                                      width: MediaQuery.of(context).size.width,
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey.shade100,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey.shade500,
+                                            spreadRadius: 5,
+                                            blurRadius: 0.3,
+                                            offset: const Offset(0, 1),
                                           ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 12, left: 20),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                data['title'],
-                                              ),
-                                              const SizedBox(
-                                                height: 5,
-                                              ),
-                                              Text(
-                                                data['category'],
-                                              ),
-                                              const SizedBox(
-                                                height: 5,
-                                              ),
-                                              Row(
-                                                children: [
-                                                  Text(
-                                                    data['price'],
-                                                  ),
-                                                  const SizedBox(
-                                                    width: 40,
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
+                                        ],
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.all(12),
+                                            child: Image.network(
+                                              data['image'],
+                                              width: 70.w,
+                                              height: 100.h,
+                                              fit: BoxFit.cover,
+                                            ),
                                           ),
-                                        ),
-                                        Icon(Icons.favorite)
-                                      ],
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                top: 12, left: 20),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                    title), // Use title with null check
+                                                const SizedBox(
+                                                  height: 5,
+                                                ),
+                                                Text(
+                                                    category), // Use category with null check
+                                                const SizedBox(
+                                                  height: 5,
+                                                ),
+                                                Text(price ??
+                                                    '1000'), // Use price with null check
+                                                const SizedBox(
+                                                  width: 40,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          GestureDetector(
+                                            onTap: () {
+                                              favouriteNotifier
+                                                  .deleteFavs(data['key']);
+                                              favouriteNotifier.ids.removeWhere(
+                                                  (element) =>
+                                                      element == data['id']);
+
+                                              setState(() {});
+                                            },
+                                            child: const Icon(Icons.favorite),
+                                          )
+                                        ],
+                                      ),
                                     ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        );
-                      }),
-                )
+                                  ),
+                                );
+                              },
+                            ));
+                })
               ],
             ),
           ],

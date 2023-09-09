@@ -4,11 +4,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive/hive.dart';
 
 import 'package:newchat/colors.dart';
+import 'package:newchat/controllers/favouries/favourites_provider.dart';
 import 'package:newchat/controllers/single_product/single_product_provider.dart';
 import 'package:newchat/models/tshirts_model.dart';
 import 'package:provider/provider.dart';
 
 import '../../common/checkout_btn.dart';
+import '../../controllers/main screen/main_screen._provider.dart';
 import '../../models/constants.dart';
 import '../../services/helper.dart';
 import '../favourite_screen.dart';
@@ -44,35 +46,18 @@ class _SingleProductPageState extends State<SingleProductPage> {
     await _cartBox.add(newCart);
   }
 
-//favourites hive
-  final _favBox = Hive.box('fav_box');
-  Future<void> _createFav(Map<dynamic, dynamic> newFav) async {
-    await _favBox.add(newFav);
-    getFavs();
-  }
-
-  getFavs() {
-    final favData = _favBox.keys.map((key) {
-      final item = _favBox.get(key);
-      return {
-        "key": key,
-        "id": item['id'],
-      };
-    }).toList();
-    favour = favData.toList();
-    ids = favour.map((item) => item['id']).toList();
-    setState(() {});
-  }
-
   @override
   void initState() {
     super.initState();
     getTshirts();
-    getFavs();
   }
 
   @override
   Widget build(BuildContext context) {
+    var favouriteNotifier =
+        Provider.of<FavouriteNotifier>(context, listen: true);
+    favouriteNotifier.getFavs();
+
     return Scaffold(
         body: FutureBuilder<TshirtsModel>(
             future: tshirts,
@@ -151,34 +136,48 @@ class _SingleProductPageState extends State<SingleProductPage> {
                                                         .height *
                                                     0.1,
                                                 right: 20,
-                                                child: GestureDetector(
-                                                  onTap: () {
-                                                    if (ids
-                                                        .contains(widget.id)) {
-                                                      Navigator.push(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                const FavouriteScreen(),
-                                                          ));
-                                                    } else {
-                                                      _createFav({
-                                                        "id": tshirt.id,
-                                                        "title": tshirt.title,
-                                                        "category":
-                                                            tshirt.category,
-                                                        "image": tshirt.image,
-                                                      });
-                                                    }
-                                                  },
-                                                  child: Icon(
-                                                    ids.contains(widget.id)
-                                                        ? Icons.favorite
-                                                        : Icons.favorite_border,
-                                                    color: Color.fromARGB(
-                                                        255, 0, 0, 0),
-                                                  ),
-                                                )),
+                                                child:
+                                                    Consumer<FavouriteNotifier>(
+                                                        builder: (context,
+                                                            favouriteNotifier,
+                                                            child) {
+                                                  return GestureDetector(
+                                                    onTap: () {
+                                                      if (favouriteNotifier.ids
+                                                          .contains(
+                                                              widget.id)) {
+                                                        // Navigate to the "Favorites" tab in the bottom navigation bar
+                                                        Navigator.pop(context);
+                                                        Provider.of<MainScreenNotifier>(
+                                                                context,
+                                                                listen: false)
+                                                            .pageIndex = 2;
+                                                      } else {
+                                                        favouriteNotifier
+                                                            .createFav({
+                                                          "id": tshirt.id,
+                                                          "title": tshirt.title,
+                                                          "category":
+                                                              tshirt.category,
+                                                          "image": tshirt.image,
+                                                          "price": tshirt.price
+                                                        });
+                                                        setState(() {});
+                                                      }
+                                                    },
+                                                    child: Icon(
+                                                      favouriteNotifier.ids
+                                                              .contains(
+                                                                  widget.id)
+                                                          ? Icons.favorite
+                                                          : Icons
+                                                              .favorite_border,
+                                                      color:
+                                                          const Color.fromARGB(
+                                                              255, 0, 0, 0),
+                                                    ),
+                                                  );
+                                                })),
                                           ],
                                         );
                                       }),
@@ -202,12 +201,12 @@ class _SingleProductPageState extends State<SingleProductPage> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                tshirt.title!,
+                                                tshirt.title,
                                               ),
                                               Row(
                                                 children: [
                                                   Text(
-                                                    tshirt.category!,
+                                                    tshirt.category,
                                                   ),
                                                   const SizedBox(
                                                     width: 20,
@@ -390,7 +389,7 @@ class _SingleProductPageState extends State<SingleProductPage> {
                                                         .width *
                                                     0.8,
                                                 child: Text(
-                                                  tshirt.title!,
+                                                  tshirt.title,
                                                   maxLines: 2,
                                                 ),
                                               ),
@@ -398,7 +397,7 @@ class _SingleProductPageState extends State<SingleProductPage> {
                                                 height: 10,
                                               ),
                                               Text(
-                                                tshirt.details!,
+                                                tshirt.details,
                                                 textAlign: TextAlign.justify,
                                                 maxLines: 4,
                                               ),

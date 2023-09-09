@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:newchat/colors.dart';
-import 'package:newchat/info.dart';
+
 import 'package:newchat/models/tshirts_model.dart';
-import 'package:newchat/screens/home%20screen/widgets/productcard.dart';
+
 import 'package:newchat/services/helper.dart';
 
 import '../../common/home_widget.dart';

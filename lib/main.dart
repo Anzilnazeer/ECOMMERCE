@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:newchat/controllers/favouries/favourites_provider.dart';
 import 'package:newchat/controllers/main%20screen/main_screen._provider.dart';
 import 'package:newchat/controllers/single_product/single_product_provider.dart';
 
@@ -23,6 +24,7 @@ void main() async {
       providers: [
         ChangeNotifierProvider(create: (context) => MainScreenNotifier()),
         ChangeNotifierProvider(create: (context) => SingleProductNotifier()),
+         ChangeNotifierProvider(create: (context) => FavouriteNotifier()),
       ],
       child: const MyApp(),
     ),
