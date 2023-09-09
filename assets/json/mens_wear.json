@@ -1,0 +1,104 @@
+ [
+    {
+      "id": "0",
+      "title": "THE HOLLANDER",
+      "details": "Graphic Print Crew-Neck T-shirt",
+      "image": 
+        "https://lp2.hm.com/hmgoepprod?set=quality%5B79%5D%2Csource%5B%2F6a%2F17%2F6a177736f45be38a41846c6f45610af9949a6c6e.jpg%5D%2Corigin%5Bdam%5D%2Ccategory%5B%Men Attiretype%5BDESCRIPTIVESTILLLIFE%5D%2Cres%5Bm%5D%2Chmver%5B2%5D&call=url[file:/product/main]",
+      
+      "category": "Men Attire",
+      "sizes": [
+        { "size": "M", "isSelected": false },
+        { "size": "L", "isSelected": false },
+        { "size": "XL", "isSelected": false },
+        { "size": "XXL", "isSelected": false }
+      ],
+      "price": "$79.00"
+    },
+    {
+      "id": "1",
+      "title": "Blue Stripe Polo",
+      "details": "Classic striped polo shirt in blue.",
+      "image": 
+        "https://m.media-amazon.com/images/I/B1J7+xRbeyS._CLa%7C2140%2C2000%7C617fRAZvdXL.png%7C0%2C0%2C2140%2C2000%2B0.0%2C0.0%2C2140.0%2C2000.0_AC_SX466_.png",
+    
+ 
+      "category": "Men Attire",
+      "sizes": [
+        { "size": "S", "isSelected": false },
+        { "size": "M", "isSelected": false },
+        { "size": "L", "isSelected": false },
+        { "size": "XL", "isSelected": false }
+      ],
+      "price": "$39.99"
+    },
+    {
+      "id": "2",
+      "title": "Black V-Neck Tee",
+      "details": "Basic black v-neck t-shirt for everyday wear.",
+      "image": 
+        "https://m.media-amazon.com/images/I/A13usaonutL._CLa%7C2140%2C2000%7C81pf4h8p8VL.png%7C0%2C0%2C2140%2C2000%2B0.0%2C0.0%2C2140.0%2C2000.0_AC_UL1500_.png",
+ 
+      "category": "Men Attire",
+      "sizes": [
+        { "size": "S", "isSelected": false },
+        { "size": "M", "isSelected": false },
+        { "size": "L", "isSelected": false },
+        { "size": "XL", "isSelected": false }
+      ],
+      "price": "$19.99"
+    },
+    {
+      "id": "3",
+      "title": "Red Graphic Tee",
+      "details": "Red t-shirt with a unique graphic print.",
+      "image": 
+        "https://m.media-amazon.com/images/I/A13usaonutL._AC_CLa%7C2140%2C2000%7C51dkHh985DL.png%7C0%2C0%2C2140%2C2000%2B0.0%2C0.0%2C2140.0%2C2000.0_UY580_.png",
+  
+     
+      "category": "Men Attire",
+      "sizes": [
+        { "size": "S", "isSelected": false },
+        { "size": "M", "isSelected": false },
+        { "size": "L", "isSelected": false },
+        { "size": "XL", "isSelected": false }
+      ],
+      "price": "$24.99"
+    },
+    {
+      "id": "4",
+      "title": "Sporty Grey Hoodie",
+      "details": "Gray hooded sweatshirt for a sporty look.",
+      "image": 
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSFZO4UcxQlF78GqVA3Jrn9U1Kq0-k349KOwzEMVM93VEKs9IdlInFkuy36F_CI2TYnbo&usqp=CAU",
+    
+      "category": "Men Attire",
+      "sizes": [
+        { "size": "S", "isSelected": false },
+        { "size": "M", "isSelected": false },
+        { "size": "L", "isSelected": false },
+        { "size": "XL", "isSelected": false }
+      ],
+      "price": "$34.99"
+    },
+    {
+      "id": "5",
+      "title": "Vintage Logo T-shirt",
+      "details": "Retro-style logo graphic tee in white.",
+      "image": 
+        "https://media.sketchfab.com/models/c9c6cde3cb93442db3f73dde3719d67c/thumbnails/60641debc77749d8b46b7b50fe42935d/d135410ad6654c5b8e4033ebff554b2e.jpeg",
+  
+   
+      "category": "Men Attire",
+      "sizes": [
+        { "size": "S", "isSelected": false },
+        { "size": "M", "isSelected": false },
+        { "size": "L", "isSelected": false },
+        { "size": "XL", "isSelected": false }
+      ],
+      "price": "$19.99"
+    }
+  ]
+  
+
+  

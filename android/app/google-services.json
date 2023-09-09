@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "372493705048",
+    "project_id": "newchat-d5126",
+    "storage_bucket": "newchat-d5126.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:372493705048:android:4b8a8904821577cc8b4f2d",
+        "android_client_info": {
+          "package_name": "com.example.newchat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "372493705048-rug304rvu9vgucs5tqi6fvvvci2ck871.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.newchat",
+            "certificate_hash": "098de6a460d0ab83eef33f2732cfac5305cfa211"
+          }
+        },
+        {
+          "client_id": "372493705048-p9nsp5li1phmu5t44ilrk0mtn99c5bov.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzLL0WIdM1Wy3S-okqQbDPZ4bufGHXc0g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "372493705048-p9nsp5li1phmu5t44ilrk0mtn99c5bov.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "372493705048-tn8g1pu9miorqf6du9nrfil19ds59a5s.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.newchat"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
