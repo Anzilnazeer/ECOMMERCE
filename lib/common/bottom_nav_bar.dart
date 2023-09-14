@@ -1,11 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:iconly/iconly.dart';
-import 'package:newchat/controllers/main%20screen/main_screen._provider.dart';
-import 'package:provider/provider.dart';
 
-import '../colors.dart';
-import 'bottom_nav_widget.dart';
+
+import 'export_package.dart';
 
 class BottomNavBar extends StatelessWidget {
   const BottomNavBar({

@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:newchat/colors.dart';
+
+
+import 'export_package.dart';
 
 class CheckoutButton extends StatelessWidget {
   const CheckoutButton({

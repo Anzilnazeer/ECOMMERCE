@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../colors.dart';
+
+import 'export_package.dart';
 
 class BottomNavWidget extends StatelessWidget {
   final IconData icon;

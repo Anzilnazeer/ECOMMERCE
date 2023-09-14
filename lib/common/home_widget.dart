@@ -1,14 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:newchat/controllers/single_product/single_product_provider.dart';
-import 'package:newchat/info.dart';
-import 'package:newchat/screens/home%20screen/showall_product.dart';
-import 'package:newchat/screens/home%20screen/single_product.dart';
-import 'package:provider/provider.dart';
 
-import '../controllers/favouries/favourites_provider.dart';
-import '../models/tshirts_model.dart';
-import '../screens/home screen/widgets/productcard.dart';
+
+import 'export_package.dart';
 
 class HomeWidget extends StatelessWidget {
   final Future<List<TshirtsModel>> men;

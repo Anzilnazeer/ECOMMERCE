@@ -5,10 +5,11 @@ class CartNotifier extends ChangeNotifier {
   final _cartBox = Hive.box('cart_box');
   List<dynamic> _cart = [];
   List<dynamic> get cart => _cart;
-  set carts(List<dynamic> newCart) {
+  set cart(List<dynamic> newCart) {
     _cart = newCart;
     notifyListeners();
   }
+
   getAllCart() {
     final cartData = _cartBox.keys.map((key) {
       final item = _cartBox.get(key);
@@ -29,5 +30,10 @@ class CartNotifier extends ChangeNotifier {
 
   Future<void> createCart(Map<dynamic, dynamic> newCart) async {
     await _cartBox.add(newCart);
+    notifyListeners();
+  }
+
+  deleteCart(int key) async {
+    await _cartBox.delete(key);
   }
 }

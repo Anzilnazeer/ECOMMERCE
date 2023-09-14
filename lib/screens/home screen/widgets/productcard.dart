@@ -1,13 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hive/hive.dart';
-import 'package:iconly/iconly.dart';
-import 'package:newchat/controllers/favouries/favourites_provider.dart';
-import 'package:newchat/models/constants.dart';
-import 'package:newchat/screens/favourite_screen.dart';
-import 'package:provider/provider.dart';
-
-import '../../../controllers/main screen/main_screen._provider.dart';
+import '../../../common/export_package.dart';
 
 class HomeProductCardContainer extends StatefulWidget {
   final String title;

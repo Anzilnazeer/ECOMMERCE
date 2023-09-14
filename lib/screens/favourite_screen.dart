@@ -1,12 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:hive/hive.dart';
-import 'package:newchat/models/constants.dart';
-import 'package:newchat/screens/main%20screen/main_screen.dart';
-import 'package:provider/provider.dart';
-
-import '../controllers/favouries/favourites_provider.dart';
+import '../common/export_package.dart';
 
 class FavouriteScreen extends StatefulWidget {
   const FavouriteScreen({super.key});

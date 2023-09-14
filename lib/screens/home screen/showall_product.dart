@@ -1,13 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:newchat/common/category_btn.dart';
-import 'package:newchat/common/custom_spacer.dart';
-import 'package:newchat/screens/home%20screen/widgets/latest_tshirts.dart';
-
-import '../../colors.dart';
-import '../../models/tshirts_model.dart';
-import '../../services/helper.dart';
+import '../../common/export_package.dart';
 
 class ShowAllProduct extends StatefulWidget {
   final int tabIndex;

@@ -34,6 +34,7 @@ class FavouriteNotifier extends ChangeNotifier {
   Future<void> createFav(Map<dynamic, dynamic> newFav) async {
     await _favBox.add(newFav);
     // getFavs();
+    notifyListeners();
   }
 
   getAllFavs() {
